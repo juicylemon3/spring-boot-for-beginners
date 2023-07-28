@@ -1,5 +1,6 @@
 package com.mananabas.springdemo.student;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,13 +14,17 @@ import java.util.List;
 @RequestMapping("/api/v1/students")
 public class StudentController {
 
-    @GetMapping()
-    public List<String> findAllStudents(){
 
-        return List.of(
-               "Lorenz Igit",
-                "Hello World"
-        );
+    private StudentService service;
+
+    public StudentController(StudentService service) {
+        this.service = service;
+    }
+
+    @GetMapping()
+    public List<Student> findAllStudents(){
+
+        return service.findAllStudents();
     }
 
 }
